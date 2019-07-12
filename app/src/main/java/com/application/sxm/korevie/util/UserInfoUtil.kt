@@ -9,8 +9,6 @@ import java.util.*
  */
 class UserInfoUtil {
 
-
-
     companion object {
         private var deviceId = ""
 

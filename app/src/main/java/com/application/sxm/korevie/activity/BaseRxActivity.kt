@@ -20,9 +20,12 @@ abstract class BaseRxActivity: RxAppCompatActivity() {
 
         mContext = this
         initStatusBar()
+        initView()
     }
 
     abstract fun getLayoutId(): Int
+
+    open fun initView() {}
 
     private fun initStatusBar() = StatusBarUtil.setColorNoTranslucent(mContext as Activity, mContext.getColor(R.color.colorPrimary))
 
