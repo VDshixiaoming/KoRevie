@@ -32,11 +32,13 @@ class RetrofitServiceManager {
 
     lateinit var mRetrofit: Retrofit
 
+    fun isRetrofitInitialzed()= ::mRetrofit.isInitialized
+
     /**
      * 获取Service
      */
     fun <T> create(service: Class<T>): T {
-        if (mRetrofit == null) {
+        if (!isRetrofitInitialzed()) {
             createOkHttpClient()
         }
         return mRetrofit.create(service)
@@ -59,7 +61,7 @@ class RetrofitServiceManager {
         builder.addInterceptor(baseInterceptor)
 
         //创建Retrofit
-        mRetrofit = Retrofit.Builder().client(builder.build()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create()).baseUrl(AppConstants.DOUBAN_BASE_URL).build()
+        mRetrofit = Retrofit.Builder().client(builder.build()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).addConverterFactory(GsonConverterFactory.create()).baseUrl(AppConstants.GANK_IO_BASE).build()
 
     }
 

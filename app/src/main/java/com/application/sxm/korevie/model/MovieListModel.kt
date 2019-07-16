@@ -6,5 +6,5 @@ package com.application.sxm.korevie.model
  */
 data class MovieListModel(
     val count: Int, val start: Int, val total: Int,
-    val title: String
+    val title: String, val subjects: List<MovieItemBean>
 )

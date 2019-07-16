@@ -8,5 +8,6 @@ class AppConstants {
 
     companion object {
         const val DOUBAN_BASE_URL = "https://api.douban.com/"
+        const val GANK_IO_BASE = "http://gank.io/api/data/"
     }
 }
