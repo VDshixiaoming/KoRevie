@@ -21,7 +21,7 @@ class MainActivity : BaseRxActivity() {
     }
 
     fun initViewPager() {
-        val fragments = ArrayList<BaseFragment>()
+        val fragments = mutableListOf<BaseFragment>()
         fragments.add(TabFragmentFactory.mInstance.getHomeFragment() as BaseFragment)
         fragments.add(TabFragmentFactory.mInstance.getVideoFragment() as BaseFragment)
         fragments.add(TabFragmentFactory.mInstance.getTicketFragment() as BaseFragment)

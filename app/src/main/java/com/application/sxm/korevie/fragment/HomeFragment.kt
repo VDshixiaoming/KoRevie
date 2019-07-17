@@ -1,7 +1,7 @@
 package com.application.sxm.korevie.fragment
 
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import com.application.sxm.korevie.R
 import com.application.sxm.korevie.model.GankFuLiModel
 import com.application.sxm.korevie.model.MovieItemBean
@@ -30,25 +30,26 @@ class HomeFragment: BaseFragment() {
         val layoutmanager = GridLayoutManager(context, 2)
         recycler.layoutManager = layoutmanager
         mAdapter = MultiTypeAdapter()
-        mAdapter.register(GankFuLiModel.FuLiItem::class.java, HomeViewBinder())
+        mAdapter.register(MovieItemBean::class.java, HomeViewBinder())
         recycler.adapter = mAdapter
     }
 
     override fun initData() {
-        GankApiProvider.getInstance().fuli
+        DoubanApiProvider.getInstance().hotMovie
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<GankFuLiModel> {
+            .subscribe(object : Observer<MovieListModel> {
 
                 override fun onSubscribe(d: Disposable) {
 
                 }
 
-                override fun onNext(fuliModel: GankFuLiModel) {
-                    onLoadSuccess(fuliModel)
+                override fun onNext(list: MovieListModel) {
+                    onLoadSuccess(list)
                 }
 
                 override fun onError(e: Throwable) {
+                    Log.e("Network_Error", e.toString())
                 }
 
                 override fun onComplete() {
@@ -57,9 +58,9 @@ class HomeFragment: BaseFragment() {
 
             })
     }
-    private fun onLoadSuccess(fuliModel: GankFuLiModel?) {
-        if (fuliModel != null && fuliModel.results != null && !fuliModel.results.isEmpty()) {
-            mAdapter.setItems(fuliModel.results)
+    private fun onLoadSuccess(fuliModel: MovieListModel?) {
+        if (fuliModel != null && fuliModel.subjects != null && !fuliModel.subjects.isEmpty()) {
+            mAdapter.setItems(fuliModel.subjects)
             mAdapter.notifyDataSetChanged()
         }
     }
